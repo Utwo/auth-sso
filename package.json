@@ -1,0 +1,48 @@
+{
+  "name": "teleport-services-auth",
+  "version": "0.0.1",
+  "description": "Teleport services auth",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "npm run copy-views && node dist/index.js",
+    "dev": "DEBUG=teleport-services-auth tsc-watch --onSuccess \"npm start\" --onFailure \"echo Compilation Failed\"",
+    "build": "npm run clean && tsc && npm run copy-views",
+    "copy-views": "cp -rf ./src/views ./dist",
+    "clean": "rm -rf dist",
+    "lint": "tslint -p ./",
+    "precommit": "pretty-quick --staged && npm run lint"
+  },
+  "author": "teleportHQ",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^10.12.17",
+    "husky": "^1.3.0",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.8.0",
+    "tsc-watch": "^1.0.31",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.4.0",
+    "debug": "^4.1.0",
+    "ejs": "^2.6.1",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "hashids": "^1.2.2",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.0",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^2.2.0",
+    "uuid": "^3.3.2"
+  }
+}

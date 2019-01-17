@@ -1,1 +1,7 @@
-auth-sso
+# Auth SSO
+
+### Setup
+```
+$ npm i
+$ docker-compose up
+```

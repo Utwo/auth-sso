@@ -1,0 +1,43 @@
+version: '3'
+services:
+  auth:
+    image: node:alpine
+    container_name: auth-sso
+    working_dir: /usr/src/app
+    command: npm run dev
+    env_file:
+      - .env
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - ${AUTH_PORT}:${AUTH_PORT}
+    depends_on:
+      - mongodb
+      - redis
+
+  mongodb:
+    image: mongo:4.0.3
+    container_name: auth-mongo
+    env_file:
+      - .env
+    volumes:
+      - 'db-data:/data/db'
+      - './initiate_mongo_user.sh:/docker-entrypoint-initdb.d/initiate_mongo_user.sh'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASS}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+    ports:
+      - ${MONGODB_PORT}:27017
+
+  redis:
+    image: redis:alpine
+    container_name: auth-redis
+    env_file:
+      - .env
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+
+volumes:
+  db-data:
+    driver: local
